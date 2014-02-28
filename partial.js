@@ -9,6 +9,16 @@
 
 */
 
+String.prototype.replaceAll = function(from, to){
+    var str = this;
+    var pos = str.indexOf(from);
+    while (pos > -1){
+		str = str.replace(from, to);
+		pos = str.indexOf(from);
+	}
+    return (str);
+}
+
 function Partial(params) {
 	this._params = params;
 	this._partialProcessed = "";
@@ -31,7 +41,7 @@ function Partial(params) {
 	};
 
 	this.fill = function(property, value) {
-		this._partialProcessed = this._partialProcessed.replace("{{" + property + "}}", value);
+		this._partialProcessed = this._partialProcessed.replaceAll("{{" + property + "}}", value);
 	};
 
 };
