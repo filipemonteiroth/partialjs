@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<title>Multiple partials</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		<script src="../dist/js/partial.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#loadContent").click(function(){
+					var partial = new Partial({
+						data: "<p>{{name}}</p><p>{{content}}</p> <div>Sub partials content {{mySubPartial}}</div>",
+						values: {
+							name: "My Partial",
+							content: "My content goes here"
+						},
+						partials: [
+							{
+								name: "mySubPartial",
+								data: "<p>{{name}} - {{age}}</p>",
+								values: [
+									{
+										name: "John",
+										age: 18
+									},
+									{
+										name: "Alex",
+										age: 21
+									},
+									{
+										name: "Rose",
+										age: 29										
+									}
+								]
+							}
+						]
+					});
+					partial.load(function(data){
+						$("#content").html("");
+						$("#content").append(data);
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<button id="loadContent">Load content</button>
+		<div id="content"></div>
+	</body>
+</html>

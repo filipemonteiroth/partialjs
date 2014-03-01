@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Single partial using file</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		<script src="../dist/js/partial.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				/* If you're testing on a local server your browser will block file loading */
+				$("#loadContent").click(function(){
+					var partial = new Partial({
+						file: "partials/partial.html",
+						values: {
+							name: "My Partial",
+							content: "My content goes here"
+						}						
+					});
+					partial.load(function(data){
+						$("#content").html("");
+						$("#content").append(data);
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<button id="loadContent">Load content</button>
+		<div id="content"></div>
+	</body>
+</html>
