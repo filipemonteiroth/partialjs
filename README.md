@@ -53,7 +53,7 @@ Nested partials
 
 Nested partials can be processed with PartialJS, see the example below:
 
-**customers.html**
+**partial_customers.html**
 
 ```html
   <div>
@@ -78,9 +78,14 @@ Nested partials can be processed with PartialJS, see the example below:
   </tr>
 ```
 
+**index.html**
+```html
+  <div id="myContent"></div>
+```
+
 ```javascript
   var partial = new Partial({
-    file: "/partials/customers.html",
+    file: "/partials/partial_customers.html",
     values: {
       title: "Title first project"
     },
