@@ -41,6 +41,10 @@ function Partial(params) {
 		/* First it will process all subpartials if exist */
 		this._partialProcessed = partial;
 		this.processAllPartials();
+		this.processMasterPartial();
+	};
+
+	this.processMasterPartial = function() {
 		for (var property in this._params.values) {
 			this.fill(property, this._params.values[property]);
 		}
@@ -52,8 +56,10 @@ function Partial(params) {
 			for (var i = 0; i < this._params.partials.length; i++) {
 				this.loadAndProcessPartial(this._params.partials[i]);
 			}
+		} else {
+			this.processMasterPartial();
 		}
-	}
+	};
 
 	this.loadAndProcessPartial = function(partial) {		
 		if (partial.data != undefined) {
@@ -64,7 +70,7 @@ function Partial(params) {
 				_this.processPartial(partial, data);
 			});
 		}		
-	}
+	};
 
 	this.processPartial = function(partial, data) {
 		var processed = "";
@@ -76,11 +82,13 @@ function Partial(params) {
 			processed += preProcessed;
 		}
 		this.fill(partial.name, processed);
+		//Process main partial, after subpartials
+		this.processMasterPartial();
 	};
 
 	this.fillWith = function(data, property, value) {
 		return data.replaceAll("{{" + property + "}}", value);
-	}
+	};
 
 	this.fill = function(property, value) {
 		this._partialProcessed = this._partialProcessed.replaceAll("{{" + property + "}}", value);
